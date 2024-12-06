@@ -11,6 +11,12 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        heroYellow: "var(--heroYellow)",
+        heroBlack: "var(--heroBlack)",
+        heroGray: "var(--heroGray)",
+      },
+      fontFamily: {
+        montserrat: "var(--font-montserrat)",
       },
     },
   },

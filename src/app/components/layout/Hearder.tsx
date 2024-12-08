@@ -7,12 +7,7 @@ const Header = () => {
     <div className="flex items-center justify-between w-3/5 bg-heroBlack rounded-full px-6 p-2">
       <div className="flex items-center gap-2">
         <div>
-          <Image
-            src="/heroverse-logo-white.svg"
-            width={50}
-            height={50}
-            alt="heroverse-logo"
-          />
+          <Image src="/heroverse-logo-white.svg" width={50} height={50} alt="heroverse-logo" />
         </div>
         <div className="font-semibold">
           Hero<span className="text-heroYellow">V</span>erse

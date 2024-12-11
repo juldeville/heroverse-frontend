@@ -13,7 +13,7 @@ const Header = () => {
           Hero<span className="text-heroYellow">V</span>erse
         </div>
       </div>
-      <div className="flex gap-2">
+      <div className="flex gap-2 items-center">
         <FontAwesomeIcon icon={faHeart} className="w-[16px] text-heroYellow" />
         <div>Favorites</div>
       </div>

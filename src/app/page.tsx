@@ -1,5 +1,5 @@
 import Header from "./components/layout/Hearder";
-import HeroSection from "./components/HeroSection";
+import IntroSection from "./components/IntroSection";
 import SearchSection from "./components/SearchSection";
 
 export default function Home() {
@@ -9,7 +9,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-[url('/spidermanBG.jpeg')] bg-cover bg-center opacity-30"></div>
         <div className="relative z-10 w-full flex flex-col items-center gap-14">
           <Header />
-          <HeroSection />
+          <IntroSection />
           <SearchSection />
         </div>
       </div>

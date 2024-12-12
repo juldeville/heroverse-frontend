@@ -24,16 +24,26 @@ const HeroCard = ({ imageUrl, stats, name, isLiked, handleLike }: MovieCardProps
       onMouseLeave={() => updateIsHovered(false)}
     >
       <div className="absolute inset-0">
-        <Image src={imageUrl} alt="Movie Image" layout="fill" className="object-cover" />
+        <Image
+          src={imageUrl}
+          alt="Movie Image"
+          fill
+          className="object-cover"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 267px"
+        />
       </div>
       <div className="flex justify-end p-2 z-10">
         <div className="bg-heroGray w-6 h-6 flex items-center justify-center p-4 rounded-full">
           {isLiked ? (
-            <FontAwesomeIcon icon={likedHeart} className="w-[16px] text-heroYellow" onClick={() => handleLike(name)} />
+            <FontAwesomeIcon
+              icon={likedHeart}
+              className="w-[16px] text-heroYellow cursor-pointer"
+              onClick={() => handleLike(name)}
+            />
           ) : (
             <FontAwesomeIcon
               icon={regularHeart}
-              className="w-[16px] text-heroYellow"
+              className="w-[16px] text-heroYellow cursor-pointer"
               onClick={() => handleLike(name)}
             />
           )}

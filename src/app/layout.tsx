@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
 import ReactQueryProvider from "./providers/ReactQueryProvider";
+import { FavoritesProvider } from "./providers/FavoritesContext";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -34,8 +35,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} ${montserrat.variable} antialiased`}>
-        <ReactQueryProvider>{children}</ReactQueryProvider>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} ${montserrat.variable} antialiased`}
+      >
+        <ReactQueryProvider>
+          <FavoritesProvider>{children}</FavoritesProvider>
+        </ReactQueryProvider>
       </body>
     </html>
   );

@@ -1,10 +1,12 @@
 "use client";
-
 import HeroCard from "./HeroCard";
 import SearchInput from "./ui-elements/SearchInput";
-import { useQuery } from "@tanstack/react-query";
+import Button from "./ui-elements/Button";
+import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import { fetchSuperHeroes } from "../api/superHeroApi";
-import { useState } from "react";
+import { useFavorites } from "../providers/FavoritesContext";
+import { useState, useEffect } from "react";
+import SkeletonPlaceholder from "./ui-elements/SkeletonPlaceholder";
 
 export interface Stats {
   intelligence: number;
@@ -21,7 +23,7 @@ interface SuperHero {
   imageUrl: string;
   stats: Stats;
 }
-interface SuperHeroApiPartial {
+interface SuperHeroApi {
   id: string;
   name: string;
   image: { url: string };
@@ -36,17 +38,13 @@ interface SuperHeroApiPartial {
 }
 
 const SearchSection = () => {
-  const [isLiked, setIsLiked] = useState<string[]>([]);
-  const handleLike = (hero: string) => {
-    isLiked.includes(hero)
-      ? setIsLiked((prevState) => prevState.filter((e) => e !== hero))
-      : setIsLiked((prevState) => [...prevState, hero]);
-  };
-  const { data, isLoading, error } = useQuery<SuperHero[]>({
+  const { isLiked, handleLike } = useFavorites();
+  const [heroes, setHeroes] = useState<SuperHero[]>([]);
+  const [batch, setBatch] = useState<number>(1);
+  const { data, isLoading, error, isFetching } = useQuery<SuperHero[]>({
     queryFn: async () => {
-      const result = await fetchSuperHeroes();
-
-      return result.heroes.map((hero: SuperHeroApiPartial) => {
+      const result = await fetchSuperHeroes(batch);
+      return result.heroes.map((hero: SuperHeroApi) => {
         return {
           id: +hero.id,
           name: hero.name,
@@ -62,11 +60,30 @@ const SearchSection = () => {
         };
       });
     },
-    queryKey: ["heroes"],
+    queryKey: ["heroes", batch],
+    placeholderData: keepPreviousData,
   });
 
+  useEffect(() => {
+    if (data) {
+      setHeroes((prevState) => [...prevState, ...data!]);
+    }
+  }, [data]);
+
+  const handleBatch = () => {
+    setBatch((prevState) => prevState + 1);
+  };
+
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="w-3/5 flex flex-col bg-heroGray rounded-2xl py-6 items-center gap-4">
+        <SearchInput />
+        <div>
+          <SkeletonPlaceholder />
+        </div>
+        <Button label="Load More" handleClick={handleBatch} />
+      </div>
+    );
   }
 
   if (error) {
@@ -77,7 +94,8 @@ const SearchSection = () => {
     <div className="w-3/5 flex flex-col bg-heroGray rounded-2xl py-6 items-center gap-4">
       <SearchInput />
       <div className="flex flex-wrap justify-center gap-4">
-        {data!.map((hero, i) => {
+        {heroes.map((hero, i) => {
+          console.log("hero id is:", hero.id);
           const liked = isLiked.includes(hero.name) ? true : false;
           return (
             <HeroCard
@@ -91,6 +109,12 @@ const SearchSection = () => {
           );
         })}
       </div>
+      {isFetching && (
+        <div>
+          <SkeletonPlaceholder />
+        </div>
+      )}
+      <Button label="Load More" handleClick={handleBatch} />
     </div>
   );
 };

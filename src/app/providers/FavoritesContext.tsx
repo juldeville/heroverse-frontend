@@ -3,9 +3,15 @@
 import { createContext, useContext, useState } from "react";
 import type { ReactNode } from "react";
 
+export type heroFavorite = {
+  name: string;
+  imageUrl: string;
+  fullName: string;
+};
+
 interface FavoritesContextProps {
-  isLiked: string[];
-  handleLike: (arg: string) => void;
+  isLiked: heroFavorite[];
+  handleLike: (arg: heroFavorite) => void;
 }
 
 const FavoritesContext = createContext<FavoritesContextProps | undefined>(undefined);
@@ -15,13 +21,14 @@ interface FavoritesProviderProps {
 }
 
 export const FavoritesProvider = ({ children }: FavoritesProviderProps) => {
-  const [likedHeroes, setLikedHeroes] = useState<string[]>([]);
-  const handleLike = (hero: string) => {
-    likedHeroes.includes(hero)
-      ? setLikedHeroes((prevState) => prevState.filter((e) => e !== hero))
+  const [likedHeroes, setLikedHeroes] = useState<heroFavorite[]>([]);
+  const handleLike = (hero: heroFavorite) => {
+    const isLiked = likedHeroes.some((el) => el.name === hero.name);
+    isLiked
+      ? setLikedHeroes((prevState) => prevState.filter((char) => char.name !== hero.name))
       : setLikedHeroes((prevState) => [...prevState, hero]);
   };
-
+  console.log("liked heroes are: ", likedHeroes);
   return (
     <FavoritesContext.Provider value={{ isLiked: likedHeroes, handleLike }}>
       {children}

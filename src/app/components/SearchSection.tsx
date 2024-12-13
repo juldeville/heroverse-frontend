@@ -17,16 +17,18 @@ export interface Stats {
   combat: number;
 }
 
-interface SuperHero {
+interface SuperHeroProps {
   id: number;
   name: string;
   imageUrl: string;
   stats: Stats;
+  fullName: string;
 }
-interface SuperHeroApi {
+interface SuperHeroApiProps {
   id: string;
   name: string;
   image: { url: string };
+  biography: { "full-name": string };
   powerstats: {
     intelligence: string;
     strength: string;
@@ -39,16 +41,17 @@ interface SuperHeroApi {
 
 const SearchSection = () => {
   const { isLiked, handleLike } = useFavorites();
-  const [heroes, setHeroes] = useState<SuperHero[]>([]);
+  const [heroes, setHeroes] = useState<SuperHeroProps[]>([]);
   const [batch, setBatch] = useState<number>(1);
-  const { data, isLoading, error, isFetching } = useQuery<SuperHero[]>({
+  const { data, isLoading, error, isFetching } = useQuery<SuperHeroProps[]>({
     queryFn: async () => {
       const result = await fetchSuperHeroes(batch);
-      return result.heroes.map((hero: SuperHeroApi) => {
+      return result.heroes.map((hero: SuperHeroApiProps) => {
         return {
           id: +hero.id,
           name: hero.name,
           imageUrl: hero.image.url,
+          fullName: hero.biography["full-name"],
           stats: {
             intelligence: +hero.powerstats.intelligence,
             strength: +hero.powerstats.strength,
@@ -95,8 +98,7 @@ const SearchSection = () => {
       <SearchInput />
       <div className="flex flex-wrap justify-center gap-4">
         {heroes.map((hero, i) => {
-          console.log("hero id is:", hero.id);
-          const liked = isLiked.includes(hero.name) ? true : false;
+          const liked = isLiked.some((el) => el.name === hero.name);
           return (
             <HeroCard
               imageUrl={hero.imageUrl}
@@ -105,6 +107,7 @@ const SearchSection = () => {
               isLiked={liked}
               handleLike={handleLike}
               name={hero.name}
+              fullName={hero.fullName}
             />
           );
         })}

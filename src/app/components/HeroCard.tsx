@@ -2,20 +2,21 @@ import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as likedHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as regularHeart } from "@fortawesome/free-regular-svg-icons";
-
 import { useState } from "react";
 import type { Stats } from "../components/SearchSection";
 import HeroStats from "./HeroStats";
+import type { heroFavorite } from "../providers/FavoritesContext";
 
 interface MovieCardProps {
   imageUrl: string;
   stats: Stats;
   isLiked: boolean;
   name: string;
-  handleLike: (arg: string) => void;
+  fullName: string;
+  handleLike: (arg: heroFavorite) => void;
 }
 
-const HeroCard = ({ imageUrl, stats, name, isLiked, handleLike }: MovieCardProps) => {
+const HeroCard = ({ imageUrl, stats, name, isLiked, fullName, handleLike }: MovieCardProps) => {
   const [isHovered, updateIsHovered] = useState(false);
   return (
     <div
@@ -38,13 +39,13 @@ const HeroCard = ({ imageUrl, stats, name, isLiked, handleLike }: MovieCardProps
             <FontAwesomeIcon
               icon={likedHeart}
               className="w-[16px] text-heroYellow cursor-pointer"
-              onClick={() => handleLike(name)}
+              onClick={() => handleLike({ imageUrl, name, fullName })}
             />
           ) : (
             <FontAwesomeIcon
               icon={regularHeart}
               className="w-[16px] text-heroYellow cursor-pointer"
-              onClick={() => handleLike(name)}
+              onClick={() => handleLike({ imageUrl, name, fullName })}
             />
           )}
         </div>

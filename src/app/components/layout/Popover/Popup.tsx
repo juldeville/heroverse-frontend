@@ -11,9 +11,10 @@ import PopupCard from "./PopupCard";
 
 interface PopoverProps {
   content: heroFavorite[];
+  handleLike: (arg: heroFavorite) => void;
 }
 
-export default function Popover({ content }: PopoverProps) {
+export default function Popover({ content, handleLike }: PopoverProps) {
   const [open, setOpen] = useState(false);
 
   const handleClick = () => {
@@ -40,7 +41,7 @@ export default function Popover({ content }: PopoverProps) {
   };
 
   const popups = content.map((popup, i) => {
-    return <PopupCard content={popup} key={i} />;
+    return <PopupCard content={popup} key={i} handleLike={handleLike} />;
   });
 
   return (

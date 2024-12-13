@@ -18,7 +18,7 @@ const Header = () => {
         </div>
       </div>
       <div className="flex gap-2 items-center">
-        <Popover content={isLiked} />
+        <Popover content={isLiked} handleLike={handleLike} />
       </div>
     </div>
   );

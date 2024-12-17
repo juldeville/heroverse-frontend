@@ -6,4 +6,10 @@ const fetchSuperHeroes = async (query: number) => {
   return data;
 };
 
-export { fetchSuperHeroes };
+const fetchSuperHeroById = async (query: number) => {
+  const response = await fetch(`${backendUrl}/fetchHeroById?id=${query}`);
+  const data = await response.json();
+  return data;
+};
+
+export { fetchSuperHeroes, fetchSuperHeroById };

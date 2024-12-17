@@ -7,6 +7,7 @@ import { fetchSuperHeroes } from "../api/superHeroApi";
 import { useFavorites } from "../providers/FavoritesContext";
 import { useState, useEffect } from "react";
 import SkeletonPlaceholder from "./ui-elements/SkeletonPlaceholder";
+import { useRouter } from "next/router";
 
 export interface Stats {
   intelligence: number;
@@ -17,7 +18,7 @@ export interface Stats {
   combat: number;
 }
 
-interface SuperHeroProps {
+export interface SuperHeroProps {
   id: number;
   name: string;
   imageUrl: string;
@@ -40,6 +41,7 @@ interface SuperHeroApiProps {
 }
 
 const SearchSection = () => {
+  const router = useRouter();
   const { isLiked, handleLike } = useFavorites();
   const [heroes, setHeroes] = useState<SuperHeroProps[]>([]);
   const [batch, setBatch] = useState<number>(1);

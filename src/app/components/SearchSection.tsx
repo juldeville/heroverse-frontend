@@ -7,7 +7,7 @@ import { fetchSuperHeroes } from "../api/superHeroApi";
 import { useFavorites } from "../providers/FavoritesContext";
 import { useState, useEffect } from "react";
 import SkeletonPlaceholder from "./ui-elements/SkeletonPlaceholder";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 export interface Stats {
   intelligence: number;
@@ -68,13 +68,20 @@ const SearchSection = () => {
     queryKey: ["heroes", batch],
     placeholderData: keepPreviousData,
   });
-
   useEffect(() => {
     if (data) {
-      setHeroes((prevState) => [...prevState, ...data!]);
+      setHeroes((prevState) => {
+        const seen = new Set();
+        return [...prevState, ...data].filter((hero) => {
+          if (seen.has(hero.id)) {
+            return false;
+          }
+          seen.add(hero.id);
+          return true;
+        });
+      });
     }
   }, [data]);
-
   const handleBatch = () => {
     setBatch((prevState) => prevState + 1);
   };

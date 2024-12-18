@@ -28,7 +28,7 @@ export const FavoritesProvider = ({ children }: FavoritesProviderProps) => {
       ? setLikedHeroes((prevState) => prevState.filter((char) => char.name !== hero.name))
       : setLikedHeroes((prevState) => [...prevState, hero]);
   };
-  console.log("liked heroes are: ", likedHeroes);
+
   return (
     <FavoritesContext.Provider value={{ isLiked: likedHeroes, handleLike }}>
       {children}

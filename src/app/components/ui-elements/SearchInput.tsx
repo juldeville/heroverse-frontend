@@ -1,9 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { fetchSuperHeroById } from "@/app/api/superHeroApi";
-import type { SuperHeroProps } from "../SearchSection";
 import allHeroes from "../../../../public/all_heroes.json";
 import { useRouter } from "next/navigation";
 
@@ -16,8 +13,6 @@ const SearchInput = () => {
   const router = useRouter();
   const [searchResultsData, setSearchResultsData] = useState<SearchResult[]>([]);
   const [searchInput, setSearchInput] = useState("");
-
-  console.log("search results are :", searchResultsData);
 
   useEffect(() => {
     if (searchInput.trim().length > 3) {
@@ -67,12 +62,3 @@ const SearchInput = () => {
 };
 
 export default SearchInput;
-
-// const { data, isLoading, error } = useQuery<SuperHeroProps[]>({
-//   queryFn: async () => {
-//     const result = await fetchSuperHeroById(id);
-//     console.log("result is", result);
-//     return result;
-//   },
-//   queryKey: ["hero", id],
-// });

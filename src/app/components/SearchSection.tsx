@@ -7,7 +7,6 @@ import { fetchSuperHeroes } from "../api/superHeroApi";
 import { useFavorites } from "../providers/FavoritesContext";
 import { useState, useEffect } from "react";
 import SkeletonPlaceholder from "./ui-elements/SkeletonPlaceholder";
-import { useRouter } from "next/navigation";
 
 export interface Stats {
   intelligence: number;
@@ -25,7 +24,7 @@ export interface SuperHeroProps {
   stats: Stats;
   fullName: string;
 }
-interface SuperHeroApiProps {
+export interface SuperHeroApiProps {
   id: string;
   name: string;
   image: { url: string };
@@ -41,7 +40,6 @@ interface SuperHeroApiProps {
 }
 
 const SearchSection = () => {
-  const router = useRouter();
   const { isLiked, handleLike } = useFavorites();
   const [heroes, setHeroes] = useState<SuperHeroProps[]>([]);
   const [batch, setBatch] = useState<number>(1);
@@ -101,7 +99,7 @@ const SearchSection = () => {
   if (error) {
     return <div>Error: {error.message}</div>;
   }
-
+  7;
   return (
     <div className="w-3/5 flex flex-col bg-heroGray rounded-2xl py-6 items-center gap-4">
       <SearchInput />

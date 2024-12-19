@@ -67,7 +67,7 @@ const HeroPage = () => {
           </div>
           <div className="">
             <Image src={data!.imageUrl} alt="Movie Image" width={300} height={300} />
-            <div className="bg-slate-400">Test</div>
+            <div className="bg-slate-400">Batman</div>
           </div>
         </div>
       </div>

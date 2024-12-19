@@ -22,6 +22,8 @@ export interface Appearance {
   race: string;
   eyeColor: string;
   hairColor: string;
+  height: string;
+  weight: string;
 }
 
 export interface SuperHeroProps {

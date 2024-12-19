@@ -29,6 +29,14 @@ const HeroPage = () => {
           power: +hero.powerstats.power,
           combat: +hero.powerstats.combat,
         },
+        appearance: {
+          gender: hero.appearance.gender,
+          race: hero.appearance.race,
+          eyeColor: hero.appearance["eye-color"],
+          hairColor: hero.appearance["hair-color"],
+          weight: hero.appearance.weight[1],
+          height: hero.appearance.height[1],
+        },
       };
     },
     queryKey: ["hero", heroId],
@@ -40,7 +48,7 @@ const HeroPage = () => {
   if (error) {
     return <div>Error is: {error.name}</div>;
   }
-  console.log("data is", data);
+  console.log("data is", data?.appearance);
   return (
     <div>
       <div className="relative h-screen w-full py-10 ">
@@ -48,26 +56,22 @@ const HeroPage = () => {
         <div className="relative z-10 w-full flex flex-col items-center gap-14">
           <Header />
           <div className="w-3/5 h-[200px] flex  justify-between items-center gap-2 px-10">
-            <FontAwesomeIcon
-              icon={faArrowLeft}
-              style={{ fontSize: "2rem" }}
-              className="text-white cursor-pointer"
-            />
+            <FontAwesomeIcon icon={faArrowLeft} style={{ fontSize: "2rem" }} className="text-white cursor-pointer" />
             <div>
               <div className="flex text-4xl font-semibold">{data!.name}</div>
-              <div className="border-r border-l border-heroYellow px-2 text-center">
-                {data?.fullName}
-              </div>
+              <div className="border-r border-l border-heroYellow px-2 text-center">{data?.fullName}</div>
             </div>
-            <FontAwesomeIcon
-              icon={faDice}
-              style={{ fontSize: "2rem" }}
-              className="text-white cursor-pointer"
-            />
+            <FontAwesomeIcon icon={faDice} style={{ fontSize: "2rem" }} className="text-white cursor-pointer" />
           </div>
           <div className="">
             <Image src={data!.imageUrl} alt="Movie Image" width={300} height={300} />
-            <div className="bg-slate-400">Batman</div>
+            <div className="bg-slate-400">
+              {data!.name} is a {data!.appearance?.race.toLowerCase()} with {data?.appearance?.eyeColor} eyes and{" "}
+              {data?.appearance?.hairColor} hair
+            </div>
+            <div className="bg-slate-400">
+              height: {data?.appearance?.height} weight: {data?.appearance?.weight}
+            </div>
           </div>
         </div>
       </div>

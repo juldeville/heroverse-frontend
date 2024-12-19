@@ -17,12 +17,20 @@ export interface Stats {
   combat: number;
 }
 
+export interface Appearance {
+  gender: string;
+  race: string;
+  eyeColor: string;
+  hairColor: string;
+}
+
 export interface SuperHeroProps {
   id: number;
   name: string;
   imageUrl: string;
   stats: Stats;
   fullName: string;
+  appearance?: Appearance;
 }
 export interface SuperHeroApiProps {
   id: string;

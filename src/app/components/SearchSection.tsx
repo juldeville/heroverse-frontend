@@ -78,16 +78,7 @@ const SearchSection = () => {
   });
   useEffect(() => {
     if (data) {
-      setHeroes((prevState) => {
-        const seen = new Set();
-        return [...prevState, ...data].filter((hero) => {
-          if (seen.has(hero.id)) {
-            return false;
-          }
-          seen.add(hero.id);
-          return true;
-        });
-      });
+      setHeroes((prevState) => [...new Set([...prevState, ...data])]);
     }
   }, [data]);
   const handleBatch = () => {

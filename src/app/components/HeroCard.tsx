@@ -6,6 +6,7 @@ import { useState } from "react";
 import type { Stats } from "../components/SearchSection";
 import HeroStats from "./HeroStats";
 import type { heroFavorite } from "../providers/FavoritesContext";
+import { useRouter } from "next/navigation";
 
 interface MovieCardProps {
   imageUrl: string;
@@ -14,15 +15,27 @@ interface MovieCardProps {
   name: string;
   fullName: string;
   handleLike: (arg: heroFavorite) => void;
+  id: number;
 }
 
-const HeroCard = ({ imageUrl, stats, name, isLiked, fullName, handleLike }: MovieCardProps) => {
+const HeroCard = ({ imageUrl, stats, name, isLiked, fullName, handleLike, id }: MovieCardProps) => {
+  const router = useRouter();
+  const handleCardClick = (heroId: number) => {
+    router.push(`/search/${heroId}`);
+  };
+
+  const handleLikeClick = (event: React.MouseEvent) => {
+    event.stopPropagation();
+    handleLike({ imageUrl, name, fullName });
+  };
+
   const [isHovered, updateIsHovered] = useState(false);
   return (
     <div
-      className="relative flex flex-col justify-between rounded-xl overflow-hidden w-[267px] h-[387px]"
+      className="relative flex flex-col justify-between rounded-xl overflow-hidden w-[267px] h-[387px] cursor-pointer"
       onMouseEnter={() => updateIsHovered(true)}
       onMouseLeave={() => updateIsHovered(false)}
+      onClick={() => handleCardClick(id)}
     >
       <div className="absolute inset-0">
         <Image
@@ -39,13 +52,13 @@ const HeroCard = ({ imageUrl, stats, name, isLiked, fullName, handleLike }: Movi
             <FontAwesomeIcon
               icon={likedHeart}
               className="w-[16px] text-heroYellow cursor-pointer"
-              onClick={() => handleLike({ imageUrl, name, fullName })}
+              onClick={handleLikeClick}
             />
           ) : (
             <FontAwesomeIcon
               icon={regularHeart}
               className="w-[16px] text-heroYellow cursor-pointer"
-              onClick={() => handleLike({ imageUrl, name, fullName })}
+              onClick={handleLikeClick}
             />
           )}
         </div>

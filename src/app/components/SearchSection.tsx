@@ -78,9 +78,19 @@ const SearchSection = () => {
   });
   useEffect(() => {
     if (data) {
-      setHeroes((prevState) => [...new Set([...prevState, ...data])]);
+      setHeroes((prevState) => {
+        const seen = new Set();
+        return [...prevState, ...data].filter((hero) => {
+          if (seen.has(hero.id)) {
+            return false;
+          }
+          seen.add(hero.id);
+          return true;
+        });
+      });
     }
   }, [data]);
+
   const handleBatch = () => {
     setBatch((prevState) => prevState + 1);
   };
@@ -90,7 +100,7 @@ const SearchSection = () => {
       <div className="w-3/5 flex flex-col bg-heroGray rounded-2xl py-6 items-center gap-4">
         <SearchInput />
         <div>
-          <SkeletonPlaceholder />
+          <SkeletonPlaceholder size="multiple" />
         </div>
         <Button label="Load More" handleClick={handleBatch} />
       </div>
@@ -109,6 +119,7 @@ const SearchSection = () => {
           const liked = isLiked.some((el) => el.name === hero.name);
           return (
             <HeroCard
+              id={hero.id}
               imageUrl={hero.imageUrl}
               stats={hero.stats}
               key={hero.id}
@@ -122,7 +133,7 @@ const SearchSection = () => {
       </div>
       {isFetching && (
         <div>
-          <SkeletonPlaceholder />
+          <SkeletonPlaceholder size="multiple" />
         </div>
       )}
       <Button label="Load More" handleClick={handleBatch} />

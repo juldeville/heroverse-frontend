@@ -29,11 +29,7 @@ export const FavoritesProvider = ({ children }: FavoritesProviderProps) => {
       : setLikedHeroes((prevState) => [...prevState, hero]);
   };
 
-  return (
-    <FavoritesContext.Provider value={{ isLiked: likedHeroes, handleLike }}>
-      {children}
-    </FavoritesContext.Provider>
-  );
+  return <FavoritesContext.Provider value={{ isLiked: likedHeroes, handleLike }}>{children}</FavoritesContext.Provider>;
 };
 
 export const useFavorites = (): FavoritesContextProps => {

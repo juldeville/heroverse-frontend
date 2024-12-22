@@ -9,6 +9,7 @@ import { faArrowLeft, faDice } from "@fortawesome/free-solid-svg-icons";
 import Header from "@/app/components/layout/Hearder";
 import Image from "next/image";
 import HeroSearchCard from "@/app/components/HeroSearchCard";
+import SkeletonPlaceholder from "@/app/components/ui-elements/SkeletonPlaceholder";
 
 const HeroPage = () => {
   const { heroId } = useParams();
@@ -44,7 +45,16 @@ const HeroPage = () => {
     placeholderData: keepPreviousData,
   });
   if (isLoading) {
-    return <div>Loading ...</div>;
+    return (
+      <div>
+        <div className="relative h-screen w-full py-10">
+          <div className="absolute inset-0 bg-gray-500 opacity-30"></div>
+          <div className="relative z-10 w-full flex flex-col items-center ">
+            <Header />
+          </div>
+        </div>
+      </div>
+    );
   }
   if (error) {
     return <div>Error is: {error.name}</div>;

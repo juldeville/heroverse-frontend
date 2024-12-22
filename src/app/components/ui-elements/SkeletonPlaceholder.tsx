@@ -1,7 +1,11 @@
 import Skeleton from "@mui/material/Skeleton";
 import Stack from "@mui/material/Stack";
 
-export default function SkeletonPlaceholder() {
+interface SkeletonPlaceholderProps {
+  size: "single" | "multiple";
+}
+
+export default function SkeletonPlaceholder({ size }: SkeletonPlaceholderProps) {
   let stacks = [];
   for (let i = 0; i < 8; i++) {
     stacks.push(
@@ -13,5 +17,17 @@ export default function SkeletonPlaceholder() {
       </Stack>
     );
   }
-  return <div className="flex flex-wrap gap-6 justify-center">{stacks}</div>;
+  if (size === "multiple") {
+    return <div className="flex flex-wrap gap-6 justify-center">{stacks}</div>;
+  }
+
+  if (size === "single") {
+    return (
+      <Stack spacing={1}>
+        {/* For variant="text", adjust the height via font-size */}
+
+        <Skeleton variant="rectangular" width={520} height={560} />
+      </Stack>
+    );
+  }
 }

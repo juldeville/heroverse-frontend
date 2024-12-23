@@ -1,9 +1,29 @@
+"use client";
 import type { SuperHeroProps } from "./SearchSection";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faDice, faRulerVertical, faWeightHanging } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { TrendingUp } from "lucide-react";
+import { PolarAngleAxis, PolarGrid, Radar, RadarChart } from "recharts";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
+
+const chartData = [
+  { month: "Intelligence", desktop: 186 },
+  { month: "Combat", desktop: 305 },
+  { month: "Speed", desktop: 237 },
+  { month: "Durability", desktop: 273 },
+  { month: "Power", desktop: 209 },
+  { month: "June", desktop: 214 },
+];
+const chartConfig = {
+  desktop: {
+    label: "Desktop",
+    color: "hsl(var(--chart-1))",
+  },
+} satisfies ChartConfig;
 
 const HeroSearchCard = ({ name, fullName, imageUrl, id, stats, appearance }: SuperHeroProps) => {
   const router = useRouter();
@@ -63,7 +83,30 @@ const HeroSearchCard = ({ name, fullName, imageUrl, id, stats, appearance }: Sup
             </div>
           </div>
         </div>
-        <div className="w-full"></div>
+        <div className="w-full">
+          <Card className="bg-slate-black">
+            <CardContent className="pb-0">
+              <ChartContainer config={chartConfig} className="mx-auto aspect-square max-h-[250px]">
+                <RadarChart data={chartData}>
+                  <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
+                  <PolarAngleAxis dataKey="month" />
+                  <PolarGrid />
+                  <Radar
+                    dataKey="desktop"
+                    fill="var(--color-desktop)"
+                    fillOpacity={0.6}
+                    stroke="#ffb444" // Border color (yellow)
+                    strokeWidth={2} // Adjust thickness (default is 1)
+                    dot={{
+                      r: 4,
+                      fillOpacity: 1,
+                    }}
+                  />
+                </RadarChart>
+              </ChartContainer>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     </div>
   );

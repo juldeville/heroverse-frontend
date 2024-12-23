@@ -4,6 +4,7 @@ import Image from "next/image";
 import Popover from "./Popover/Popup";
 import { useFavorites } from "@/app/providers/FavoritesContext";
 import Link from "next/link";
+import { Badge } from "@/components/ui/badge";
 
 const Header = () => {
   const { isLiked, handleLike } = useFavorites();
@@ -15,7 +16,7 @@ const Header = () => {
           <div>
             <Image src="/heroverse-logo-white.svg" width={50} height={50} alt="heroverse-logo" />
           </div>
-          <div className="font-semibold">
+          <div className="font-semibold text-white">
             Hero<span className="text-heroYellow">V</span>erse
           </div>
         </Link>

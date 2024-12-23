@@ -49,12 +49,10 @@ export default function Popover({ content, handleLike }: PopoverProps) {
       <Box sx={{ position: "relative" }}>
         <button type="button" onClick={handleClick} className="flex gap-2 items-center">
           <FontAwesomeIcon icon={faHeart} className="w-[16px] text-heroYellow" />
-          <div>Favorites</div>
+          <div className="text-white">Favorites</div>
         </button>
         {open ? (
-          <Box sx={styles}>
-            {popups.length > 0 ? popups : <div className="text-xs">No favorites saved</div>}
-          </Box>
+          <Box sx={styles}>{popups.length > 0 ? popups : <div className="text-xs">No favorites saved</div>}</Box>
         ) : null}
       </Box>
     </ClickAwayListener>

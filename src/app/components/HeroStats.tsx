@@ -8,7 +8,7 @@ const HeroStats = ({ stats }: HeroStatsProps) => {
   const formatStat = (stat: number) => (isNaN(stat) ? "-" : stat);
 
   return (
-    <div className="z-10 flex p-2 px-4 justify-between w-full items-center text-sm relative">
+    <div className="z-10 flex p-2 px-4 justify-between w-full items-center text-white text-sm relative">
       <div className="z-10">💪{formatStat(stats.strength)}</div>
       <div className="z-10">🧠{formatStat(stats.intelligence)}</div>
       <div className="z-10">🛡️{formatStat(stats.durability)}</div>

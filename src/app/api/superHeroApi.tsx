@@ -12,4 +12,10 @@ const fetchSuperHeroById = async (query: number) => {
   return data;
 };
 
-export { fetchSuperHeroes, fetchSuperHeroById };
+const fetchRandomSuperHeroes = async () => {
+  const response = await fetch(`${backendUrl}/getRandomHeroes`);
+  const data = await response.json();
+  return data;
+};
+
+export { fetchSuperHeroes, fetchSuperHeroById, fetchRandomSuperHeroes };

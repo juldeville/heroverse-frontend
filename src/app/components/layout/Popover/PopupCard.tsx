@@ -10,7 +10,7 @@ interface PopupCardProps {
 }
 const PopupCard = ({ content, handleLike }: PopupCardProps) => {
   return (
-    <div className="w-[250px] h-16 flex items-stretch py-1 gap-2">
+    <div className="w-[250px] h-16 flex items-stretch py-1 gap- text-white">
       <div className="w-[250px] h-16 flex items-stretch py-1 gap-2">
         <div className="w-14  relative overflow-hidden rounded-xl">
           <Image src={content.imageUrl} alt="Hero" fill className="object-cover" />

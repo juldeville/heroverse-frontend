@@ -52,7 +52,13 @@ export default function Popover({ content, handleLike }: PopoverProps) {
           <div className="text-white">Favorites</div>
         </button>
         {open ? (
-          <Box sx={styles}>{popups.length > 0 ? popups : <div className="text-xs">No favorites saved</div>}</Box>
+          <Box sx={styles}>
+            {popups.length > 0 ? (
+              popups
+            ) : (
+              <div className="text-xs text-white">No favorites saved</div>
+            )}
+          </Box>
         ) : null}
       </Box>
     </ClickAwayListener>

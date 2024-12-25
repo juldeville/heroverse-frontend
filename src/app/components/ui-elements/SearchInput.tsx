@@ -42,7 +42,7 @@ const SearchInput = () => {
   });
 
   return (
-    <div className=" relative w-4/5">
+    <div className=" relative w-4/5 text-white">
       <div className=" bg-heroGray text-heroBlack  border-2 border-[#D1D5DB] p-3 px-4 rounded-full flex gap-6 items-center">
         <FontAwesomeIcon icon={faMagnifyingGlass} className="w-[16px] text-[#848689]" />
         <input

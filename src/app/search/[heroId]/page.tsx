@@ -4,20 +4,16 @@ import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import type { SuperHeroProps } from "@/app/components/SearchSection";
 import { fetchSuperHeroById } from "@/app/api/superHeroApi";
 import { useParams } from "next/navigation";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft, faDice } from "@fortawesome/free-solid-svg-icons";
 import Header from "@/app/components/layout/Hearder";
-import Image from "next/image";
-import HeroSearchCard from "@/app/components/HeroSearchCard";
+import HeroSearchCard from "@/app/components/HeroSearch/HeroSearchCard";
 import SkeletonPlaceholder from "@/app/components/ui-elements/SkeletonPlaceholder";
 
 const HeroPage = () => {
   const { heroId } = useParams();
-  const { data, isLoading, error, isFetching } = useQuery<SuperHeroProps>({
+  const { data, isLoading, error } = useQuery<SuperHeroProps>({
     queryFn: async () => {
       const result = await fetchSuperHeroById(+heroId!);
       const hero = result.hero;
-      console.log("result is:", result);
       return {
         id: +hero.id,
         name: hero.name,
@@ -49,8 +45,11 @@ const HeroPage = () => {
       <div>
         <div className="relative h-screen w-full py-10">
           <div className="absolute inset-0 bg-gray-500 opacity-30"></div>
-          <div className="relative z-10 w-full flex flex-col items-center ">
+          <div className="relative z-10  flex flex-col items-center gap-20 ">
             <Header />
+            <div className=" w-3/5 flex justify-center ">
+              <SkeletonPlaceholder size="single" />
+            </div>
           </div>
         </div>
       </div>

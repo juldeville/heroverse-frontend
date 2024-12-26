@@ -4,7 +4,6 @@ import Stack from "@mui/material/Stack";
 interface SkeletonPlaceholderProps {
   size: "single" | "multiple";
 }
-
 export default function SkeletonPlaceholder({ size }: SkeletonPlaceholderProps) {
   let stacks = [];
   for (let i = 0; i < 8; i++) {

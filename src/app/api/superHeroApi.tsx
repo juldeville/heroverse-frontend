@@ -1,4 +1,4 @@
-const backendUrl = "http://localhost:3000";
+const backendUrl = "https://heroverse-backend.vercel.app";
 
 const fetchSuperHeroes = async (query: number) => {
   const response = await fetch(`${backendUrl}/fetchHeroes?batch=${query}`);
